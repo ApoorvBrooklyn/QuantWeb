@@ -3,7 +3,7 @@ from datasets import Dataset
 import pandas as pd
 
 # Load synthetic dataset
-df = pd.read_csv("synthetic_indian_stock_market.csv")
+df = pd.read_csv("cleaned_dataset.csv")
 dataset = Dataset.from_pandas(df)
 
 # Map sentiment to numerical labels
