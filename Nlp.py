@@ -2,11 +2,12 @@ import torch
 from transformers import BertTokenizer, BertForSequenceClassification
 import pandas as pd
 from news_cnbc import processed_news
+from transformers import AutoModelForSequenceClassification, AutoTokenizer, Trainer, TrainingArguments
+
 
 # Load FinBERT tokenizer and model
-model_name = "yiyanghkust/finbert-tone"
-tokenizer = BertTokenizer.from_pretrained(model_name)
-model = BertForSequenceClassification.from_pretrained(model_name)
+model = AutoModelForSequenceClassification.from_pretrained("./finetuned_model")
+tokenizer = AutoTokenizer.from_pretrained("./finetuned_model")
 
 # Ensure the model is in evaluation mode
 model.eval()
