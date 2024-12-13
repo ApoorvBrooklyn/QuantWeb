@@ -1,17 +1,24 @@
 from transformers import BertTokenizer, BertForSequenceClassification
 import torch
-from news_cnbc import processed_news
+import openai
+import pandas as pd
+from dotenv import load_dotenv
+import os
+from news_cnbc import processed_news  # Assuming this is your source of data
 
-# Load the FinBERT model and tokenizer
+# Load .env file for OpenAI API Key
+load_dotenv()
+openai.api_key = os.getenv("OPENAI_API_KEY")
+
+# Load FinBERT model and tokenizer
 model_name = "yiyanghkust/finbert-tone"
 tokenizer = BertTokenizer.from_pretrained(model_name)
 model = BertForSequenceClassification.from_pretrained(model_name)
-import pandas as pd
 
 # Assuming 'processed_news' is a DataFrame
-headlines = processed_news.iloc[:, 0].tolist()  # Replace 0 with the actual column index for headlines if needed
+headlines = processed_news.iloc[:, 0].tolist()
 
-
+# Rule-based keywords for sentiment classification
 rule_based_keywords = {
     "Negative": [
         # General negative terms
@@ -66,43 +73,80 @@ rule_based_keywords = {
     ],
 }
 
-
 # Function to classify sentiment based on rules
 def classify_sentiment_with_rules(sentence):
     sentence_lower = sentence.lower()
     for sentiment, keywords in rule_based_keywords.items():
         if any(keyword in sentence_lower for keyword in keywords):
             return sentiment
-    return None  # If no keyword matches, return None
+    return None
 
-# Function to classify sentiment (rule-based + model-based)
+# Function to classify sentiment using OpenAI API
+def classify_sentiment_openai(sentence):
+    try:
+        response = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo",
+            messages=[
+                {"role": "system", "content": "You are a financial sentiment analysis expert."},
+                {"role": "user", "content": f"Classify the sentiment of this sentence as Positive, Neutral, or Negative based on its financial impact on the Indian Stock Market: '{sentence}'"}
+            ],
+            max_tokens=10,
+            temperature=0
+        )
+        sentiment = response['choices'][0]['message']['content'].strip()
+        return sentiment
+    except Exception as e:
+        print(f"OpenAI API Error: {e}")
+        return "Error"
+
+# Function to classify sentiment (rule-based, model-based, and OpenAI API)
 def sentiment_analysis(sentences):
     results = []
     for sentence in sentences:
-        # Check for rule-based classification
         rule_sentiment = classify_sentiment_with_rules(sentence)
         if rule_sentiment:
-            results.append({"sentence": sentence, "sentiment": rule_sentiment})
+            results.append({"sentence": sentence, "sentiment": rule_sentiment, "source": "Rule-Based"})
         else:
-            # If no rule applies, use the model
+            # FinBERT model-based classification
             inputs = tokenizer(sentence, padding=True, truncation=True, return_tensors="pt")
             with torch.no_grad():
                 outputs = model(**inputs)
             logits = outputs.logits
             prediction = torch.argmax(logits, dim=1).item()
-            # Map numerical labels back to sentiments
             label_map_reverse = {0: "Negative", 1: "Neutral", 2: "Positive"}
             model_sentiment = label_map_reverse[prediction]
-            results.append({"sentence": sentence, "sentiment": model_sentiment})
+
+            # Validate with OpenAI API
+            openai_sentiment = classify_sentiment_openai(sentence)
+
+            # Combine or flag discrepancies
+            if model_sentiment != openai_sentiment:
+                results.append({
+                    "sentence": sentence,
+                    "sentiment": model_sentiment,
+                    "openai_sentiment": openai_sentiment,
+                    "source": "FinBERT + OpenAI (Discrepancy)"
+                })
+            else:
+                results.append({
+                    "sentence": sentence,
+                    "sentiment": model_sentiment,
+                    "source": "FinBERT"
+                })
     return results
 
-test_sentences = headlines
-
 # Run the enhanced sentiment analysis
-analysis_results = sentiment_analysis(test_sentences)
+analysis_results = sentiment_analysis(headlines)
+
+# Save results to a CSV file for further analysis
+results_df = pd.DataFrame(analysis_results)
+results_df.to_csv("sentiment_analysis_results.csv", index=False)
 
 # Display results
 for result in analysis_results:
     print(f"Sentence: {result['sentence']}")
     print(f"Predicted Sentiment: {result['sentiment']}")
+    if "openai_sentiment" in result:
+        print(f"OpenAI Sentiment: {result['openai_sentiment']}")
+    print(f"Source: {result['source']}")
     print()

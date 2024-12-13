@@ -1,0 +1,35 @@
+sentence,sentiment,source,openai_sentiment
+"UK economy shrinks for second month, contracting 0.1% in October",Negative,Rule-Based,
+"Wholesale prices rose 0.4% in November, more than expected",Neutral,FinBERT + OpenAI (Discrepancy),Positive
+"If Trump wants to kill inflation, this is the first thing he needs to do",Negative,Rule-Based,
+"Budget deficit swells in November, pushing fiscal 2025 shortfall 64% higher",Negative,Rule-Based,
+"Annual inflation rate accelerates to 2.7% in November, as expected",Negative,Rule-Based,
+CPI report Wednesday is expected to show progress on inflation has hit a wall,Negative,Rule-Based,
+"Household finance outlook hits highest since February 2020, Fed survey shows",Neutral,FinBERT + OpenAI (Discrepancy),Positive
+The Fed is on course to cut rates in December. What happens next is anyone's guess,Negative,FinBERT + OpenAI (Discrepancy),Neutral
+Unemployment rate jumps more than a percentage point for Black women in November,Negative,Rule-Based,
+Here’s where the jobs are for November 2024 — in one chart,Negative,FinBERT + OpenAI (Discrepancy),Neutral
+"Payrolls increased 227,000 in November, more than expected; unemployment rate at 4.2%",Negative,Rule-Based,
+There's an important jobs report coming Friday. Here's what to expect,Negative,FinBERT + OpenAI (Discrepancy),Neutral
+Trump plans to nominate Paul Atkins as SEC chair in crypto-friendly move,Negative,FinBERT + OpenAI (Discrepancy),Positive
+"Private payrolls grew by 146,000 in November, less than expected, ADP says",Positive,FinBERT + OpenAI (Discrepancy),Negative
+Bank of England's Bailey signals four interest rate cuts in 2025 if inflation cools,Negative,Rule-Based,
+France's political chaos casts long shadow over economic growth,Positive,Rule-Based,
+"Job openings jumped, hiring slumped in October, key labor report shows",Positive,FinBERT + OpenAI (Discrepancy),Negative
+Fed Governor Waller says he is 'leaning toward' a December interest rate cut,Negative,Rule-Based,
+"India's quarterly growth slumps to a near two-year low, well below expectations",Positive,Rule-Based,
+"Euro zone inflation climbs to 2.3% in November, meeting expectations",Negative,Rule-Based,
+These economists say AI can improve the fiscal health of the U.S.,Neutral,FinBERT,
+"Fed’s preferred inflation gauge rises to 2.3% annually, meeting expectations",Negative,Rule-Based,
+"Trump's proposed tariff hikes would boost inflation by nearly 1%, Goldman says",Negative,Rule-Based,
+U.S. stock market loves Trump's pick of Bessent for Treasury — here's why,Negative,FinBERT + OpenAI (Discrepancy),The sentiment of the sentence is Positive as it suggests
+Can Saudi Arabia keep pace with its ambitious mega-project spending spree?,Negative,FinBERT + OpenAI (Discrepancy),Neutral
+Donald Trump chooses hedge fund executive Scott Bessent for Treasury secretary,Negative,FinBERT + OpenAI (Discrepancy),Neutral
+"Trump might name Kevin Warsh as Treasury chief then Fed chair later, report says",Negative,Rule-Based,
+Trump and Fed Chair Powell could be set on a collision course over interest rates,Negative,FinBERT,
+"UK economy ekes out 0.1% growth in the third quarter, below expectations",Positive,Rule-Based,
+"Wholesale prices rose 0.2% in October, in line with expectations",Negative,FinBERT + OpenAI (Discrepancy),Neutral
+"Annual inflation rate hit 2.6% in October, meeting expectations",Negative,Rule-Based,
+Powell and the Fed won't be able to avoid talking about Trump forever,Positive,FinBERT + OpenAI (Discrepancy),Neutral
+"Mnuchin says Trump's top priorities will be tax cuts, Iran sanctions and tariffs",Negative,Rule-Based,
+What Trump’s historic election victory means for the global economy,Negative,FinBERT + OpenAI (Discrepancy),Neutral
