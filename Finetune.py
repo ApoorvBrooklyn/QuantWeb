@@ -5,7 +5,7 @@ import torch
 
 # === Load and Prepare Dataset ===
 # Load synthetic dataset (first 2000 entries)
-df = pd.read_csv("cleaned_dataset.csv").head(2000)
+df = pd.read_csv("")
 dataset = Dataset.from_pandas(df)
 
 # Map sentiment to numerical labels
