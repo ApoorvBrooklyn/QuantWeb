@@ -17,7 +17,7 @@ class StockPricePredictionModel:
         self.stock_data = {}
         self.news_impact = {}
     
-    def fetch_stock_data(self, days=365):
+    def fetch_stock_data(self, days=30):
         """
         Fetch historical stock data for listed stocks
         
