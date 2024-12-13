@@ -1,6 +1,6 @@
 from transformers import BertTokenizer, BertForSequenceClassification
 import torch
-from news_cnbc import processed_news
+#from news_cnbc import processed_news
 
 # Load the FinBERT model and tokenizer
 model_name = "yiyanghkust/finbert-tone"
@@ -9,7 +9,7 @@ model = BertForSequenceClassification.from_pretrained(model_name)
 import pandas as pd
 
 # Assuming 'processed_news' is a DataFrame
-headlines = processed_news.iloc[:, 0].tolist()  # Replace 0 with the actual column index for headlines if needed
+#headlines = processed_news.iloc[:, 0].tolist()  # Replace 0 with the actual column index for headlines if needed
 
 
 rule_based_keywords = {
@@ -96,7 +96,7 @@ def sentiment_analysis(sentences):
             results.append({"sentence": sentence, "sentiment": model_sentiment})
     return results
 
-test_sentences = headlines
+test_sentences = ["Us cuts fed rates"]
 
 # Run the enhanced sentiment analysis
 analysis_results = sentiment_analysis(test_sentences)

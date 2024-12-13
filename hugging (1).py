@@ -5,7 +5,6 @@ from textblob import TextBlob
 import requests
 from datetime import datetime, timedelta
 
-
 class StockPricePredictionModel:
     def __init__(self, stocks_list):
         """
@@ -17,7 +16,7 @@ class StockPricePredictionModel:
         self.stock_data = {}
         self.news_impact = {}
     
-    def fetch_stock_data(self, days=365):
+    def fetch_stock_data(self, days=30):
         """
         Fetch historical stock data for listed stocks
         
